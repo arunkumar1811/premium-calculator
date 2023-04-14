@@ -1,0 +1,65 @@
+<form #premiumForm="ngForm" >
+  <div class="form-control">
+    <input matInput type="text" class="input-box" id="name" placeholder="Name" [formControl]="nameControl" required>
+    <mat-error class="error" *ngIf="nameControl.touched && nameControl.hasError('required')">
+      Please enter name
+    </mat-error>
+  </div>
+  <div class="form-control">
+    <input matInput [min]="minDate" class="input-box" [max]="maxDate" [matDatepicker]="dob" required
+     (click)="dob.open()" [formControl]="dobControl" (dateChange)="dobValueChanged($event)" required
+          (dateChange)="minDate2 = firstDate" placeholder="Date of Birth">       
+        <mat-datepicker #dob></mat-datepicker>
+        <mat-error class="error" *ngIf="dobControl.touched && dobControl.hasError('required') ">
+          Please select Date of birth
+        </mat-error>
+    </div>
+  <div class="form-control">
+    <input type="number" min="0" max="70" class="input-box" id="age"  placeholder="Age" 
+    [formControl]="ageControl" 
+    name="age" required (blur)=validateAge()>
+    <mat-error class="error" *ngIf="ageControl.touched && ageControl.hasError('required') ">
+      Please enter age
+    </mat-error>
+    <mat-error class="error" *ngIf="ageControl.touched && ageControl.hasError('range')">
+      Maximum allowed age is 70.
+    </mat-error>
+    </div>  
+    <div class="form-control">
+      <input matInput type="text" class="input-box" id="sumInsured" placeholder="Sum Insured" 
+     [formControl]= "sumInsuredControl" pattern="^[0-9]+(.[0-9]{0,2})?$"
+      name="sumInsured" required>
+      <mat-error class="error" *ngIf="sumInsuredControl.touched && sumInsuredControl.hasError('required')">
+        Please enter Sum Insured
+      </mat-error>
+      <mat-error class="error" *ngIf="sumInsuredControl.touched && sumInsuredControl.hasError('pattern')">
+        Please enter valid number
+      </mat-error>
+    </div>
+  <div class="form-control">
+    <mat-select class="input-box" id="occupation" placeholder="Select Occupation" (selectionChange)=calculatePremium()
+    [formControl] = occupationControl name="occupation"> 
+      <mat-option *ngFor="let occupation of occupations" [value]="occupation.ratting">
+        {{occupation.name }}
+      </mat-option>
+    </mat-select>
+  <mat-error class="error" *ngIf="occupationControl.hasError('required') ">
+    Please select occupation
+  </mat-error>
+  </div>
+ 
+
+  <div class="label-text">
+    <button type="button" class="button" mat-raised-button 
+    [disabled]="!premiumForm.form.valid"
+    (click)="calculatePremium()" name="CalculatePremium"> Calculate Premium   
+</button>
+  <div *ngIf="!isFormInValid">    
+    Death Premium: {{deathPremium}}
+  </div>
+  <div *ngIf="!isFormInValid">
+    TPD Premium : {{TPBPremium}}
+  </div>
+</div>
+ 
+</form>

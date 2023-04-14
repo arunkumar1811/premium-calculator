@@ -1,0 +1,8 @@
+[
+    { "name": "Cleaner", "ratting": "Light Manual" },
+    { "name": "Doctor", "ratting": "Professional" },
+    { "name": "Author", "ratting": "White Collar" },
+    { "name": "Farmer", "ratting": "Heavy Manual" },
+    { "name": "Mechanic", "ratting": "Heavy Manual" },
+    { "name": "Florist", "ratting": "Light Manual" }
+]
